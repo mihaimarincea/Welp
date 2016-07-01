@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+
+
+
+<!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -55,17 +59,34 @@
     <div id="fh5co-page">
         <section id="fh5co-header">
             <div class="container">
-                <nav role="navigation">
+                <nav role="navigation" >
                     <ul class="pull-left left-menu">
                         <li class="active"><a href="tour.html">Tour</a></li>
                         <li><a href="about.html">About</a></li>
                         <li><a href="pricing.html">Servicii</a></li>
                     </ul>
                     <h1 id="fh5co-logo"><a href="index.html">welp</a></h1>
-                    <ul class="pull-right right-menu">
-                        <li><a href="#">Intra in cont</a></li>
-                        <li class="fh5co-cta-btn"><a href="#">Devino welper</a></li>
+     @if (User.IsSignedIn())
+     {
+        
+            <ul class="pull-right right-menu">
+                <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm">
+                    <li>
+                        <a asp-controller="Manage" asp-action="Index" title="Setari">Hello @User.GetUserName()!</a>
+                    </li>
+                    <li>
+                        <button type="submit">Iesi din cont</button>
+                    </li>
+                </form>
+            </ul>
+        
+     }
+     else
+     {                <ul class="pull-right right-menu">
+                        <li><a asp-controller="Account" asp-action="Login">Intra in cont</a></li>
+                        <li class="fh5co-cta-btn"><a asp-controller="Account" asp-action="Register">Devino welper</a></li>
                     </ul>
+     }
                 </nav>
             </div>
         </section>
